@@ -1,0 +1,16 @@
+[
+	{
+		"_id" : "Female",
+		"value" : {
+			"averageWeight" : 69.62538009324955,
+			"averageHeight" : 166.34664504358403
+		}
+	},
+	{
+		"_id" : "Male",
+		"value" : {
+			"averageWeight" : 69.56205994769664,
+			"averageHeight" : 166.2924964795816
+		}
+	}
+]

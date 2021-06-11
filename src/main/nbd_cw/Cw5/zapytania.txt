@@ -1,0 +1,39 @@
+//1
+MATCH (movie:Movie) RETURN movie
+//2
+MATCH (tom:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(hwMovies) RETURN hwMovies
+//3
+MATCH (tom:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(hwMovies)<-[:DIRECTED]-(directors) RETURN directors
+//4
+MATCH (tom:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(hwMovies)<-[:ACTED_IN]-(actors) RETURN actor
+//5
+MATCH (movie:Movie)<-[:ACTED_IN]-(actors)-[:ACTED_IN]->(movies) where movie.title contains "Matrix" return movies
+//6
+MATCH (actor:Person)-[acted_in:ACTED_IN]->(movie) WITH actor, count(acted_in) AS movie_count WHERE movie_count>0 RETURN actor, movie_count
+//7
+MATCH (director:Person)-[:DIRECTED]->(movie)<-[:WROTE]-(writer) WHERE director=writer RETURN writer, movie
+//8
+MATCH (kv:Person {name:"Keanu Reeves"})-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(hw:Person {name:"Hugo Weaving"}) RETURN movie
+//9
+CREATE (CaptainAmerica:Movie {title:'Captain America: The First Avenger', released:2011, tagline:'Super-Soldier serum'})
+CREATE (Captain:Person {name:'Chris Evans', born:1964})
+CREATE (Director:Person {name:'Joe Johnston', born:1967})
+CREATE (Writer1:Person {name:'Christopher Markus', born:1961})
+CREATE (Writer2:Person {name:'Stephen McFeely', born:1960})
+CREATE (Writer3:Person {name:'Joe Simon', born:1967})
+CREATE (Writer4:Person {name:'Jack Kirby', born:1965})
+CREATE (Carter:Person {name:'Hayley Atwell', born:1952})
+CREATE
+(Director)-[:DIRECTED]->(CaptainAmerica),
+(Captain)-[:ACTED_IN {roles:['Captain']}]->(CaptainAmerica),
+(Carter)-[:ACTED_IN {roles:['Carter']}]->(CaptainAmerica),
+(LillyW)-[:WROTE]->(CaptainAmerica),
+(Writer1)-[:WROTE]->(CaptainAmerica),
+(Writer2)-[:WROTE]->(CaptainAmerica),
+(Writer3)-[:WROTE]->(CaptainAmerica),
+(Writer4)-[:WROTE]->(CaptainAmerica)
+
+MATCH (people:Person)-[r:ACTED_IN|WROTE|DIRECTED]-(movie:Movie {title: 'Captain America: The First Avenger'})  return movie,people
+
+
+
