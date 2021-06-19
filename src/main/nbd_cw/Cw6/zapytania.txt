@@ -4,7 +4,7 @@ Match path = shortestPath((dt:town {name:'Darjeeling'})-[*]->(sp:peak {name: 'Sa
 Match path = shortestPath((dt:town {name:'Darjeeling'})-[*]-(sp:peak {name: 'Sandakphu'}))
 WHERE ALL(r in relationships(path) where r.winter="true") return path
 //3
-MATCH path = SHORTESTPATH((dt:town {name:'Darjeeling'})-[*]-(sp:peak {name: 'Sandakphu'}))
+MATCH path = shortestPath((dt:town {name:'Darjeeling'})-[*]-(sp:peak {name: 'Sandakphu'}))
 RETURN path, reduce(rDistance=0, r IN relationships(path)|rDistance + r.distance) AS totalDistance ORDER BY totalDistance ASC
 //4
 MATCH (airport:Airport)-[:ORIGIN]-(flight:Flight)
@@ -13,5 +13,37 @@ RETURN airport, flights
 ORDER BY flights DESC
 //5
 MATCH path=(lax:Airport {name:"LAX"})-[o:ORIGIN]-(flight:Flight)-[r:DESTINATION|ORIGIN*]->(airport:Airport)
-WITH path,airport,REDUCE(fprice=0, f in relationships(path)| fprice+f.price) as totalPrice
+WITH path,airport,REDUCE(fprice=0, f in [conFlights IN NODES(path) WHERE 'Flight' IN LABELS(conFlights)] |
+fprice + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) as totalPrice
+WHERE totalPrice < 3000
+return airport,totalPrice
+//6
+MATCH path=(lax:Airport {name:"LAX"})-[o:ORIGIN]-(flight:Flight)-[r:DESTINATION|ORIGIN*]->(airport:Airport {name: "DAY"})
+WITH path,airport,REDUCE(fprice=0, f in [conFlights IN NODES(path) WHERE 'Flight' IN LABELS(conFlights)] |
+fprice + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) as totalPrice
+return path,airport,totalPrice
+Order by totalPrice
+//7
+MATCH path=(lax:Airport {name:"LAX"})-[o:ORIGIN]-(flight:Flight)-[r:DESTINATION|ORIGIN*]->(airport:Airport {name: "DAY"})
+WITH path,airport,REDUCE(fprice=0, f in [conFlights IN NODES(path) WHERE 'Flight' IN LABELS(conFlights)] |
+fprice + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) as totalPrice
+return path,airport,totalPrice
+Order by totalPrice Asc Limit 1
+//8
+MATCH path=(lax:Airport {name:"LAX"})-[o:ORIGIN]-(flight:Flight)-[r:DESTINATION|ORIGIN*]->(airport:Airport {name: "DAY"})
+WITH path,airport,REDUCE(fprice=0, f in [conFlights IN NODES(path) WHERE 'Flight' IN LABELS(conFlights)] |
+fprice + [(n)<-[:ASSIGN]-(ticket {class: "business"}) | ticket.price][0]) as totalPrice
+return path,airport,totalPrice
+Order by totalPrice Asc Limit 1
+//9
+MATCH (f1:Flight)-[:ORIGIN]->(a1:Airport),
+(f2:Flight)-[:DESTINATION]->(a2:Airport)
+WHERE  f1.airline=f2.airline
+RETURN f1.airline,count(distinct(a1)) as Origins,count(distinct(a2)) as Destinations
+//10
+MATCH path=(a1:Airport {name:"LAX"})-[o:ORIGIN]-(f1:Flight)-[r1:DESTINATION]->(a2:Airport)<-[r3:ORIGIN]-(f2:Flight)-[r4:DESTINATION]->(a3:Airport)
+WHERE NOT(a1=a2) AND NOT(a1=a3) AND NOT(a2=a3)
+WITH path,REDUCE(fprice=0, f in [conFlights IN NODES(path) WHERE 'Flight' IN LABELS(conFlights)] |
+fprice + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) as totalPrice
 return path,totalPrice
+Order by totalPrice Asc Limit 1

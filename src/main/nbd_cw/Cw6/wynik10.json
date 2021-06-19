@@ -1,0 +1,156 @@
+﻿[
+  {
+    "path": {
+"start": {
+"identity": 195,
+"labels": [
+          "Airport"
+        ],
+"properties": {
+"name": "LAX"
+        }
+      },
+"end": {
+"identity": 202,
+"labels": [
+          "Airport"
+        ],
+"properties": {
+"name": "IAD"
+        }
+      },
+"segments": [
+        {
+          "start": {
+"identity": 195,
+"labels": [
+              "Airport"
+            ],
+"properties": {
+"name": "LAX"
+            }
+          },
+          "relationship": {
+"identity": 1023,
+"start": 849,
+"end": 195,
+"type": "ORIGIN",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 849,
+"labels": [
+              "Flight"
+            ],
+"properties": {
+"date": "11/29/2015 07:39:45",
+"duration": 40,
+"distance": 236,
+"airline": "19977"
+            }
+          }
+        },
+        {
+          "start": {
+"identity": 849,
+"labels": [
+              "Flight"
+            ],
+"properties": {
+"date": "11/29/2015 07:39:45",
+"duration": 40,
+"distance": 236,
+"airline": "19977"
+            }
+          },
+          "relationship": {
+"identity": 1024,
+"start": 849,
+"end": 215,
+"type": "DESTINATION",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 215,
+"labels": [
+              "Airport"
+            ],
+"properties": {
+"name": "LAS"
+            }
+          }
+        },
+        {
+          "start": {
+"identity": 215,
+"labels": [
+              "Airport"
+            ],
+"properties": {
+"name": "LAS"
+            }
+          },
+          "relationship": {
+"identity": 648,
+"start": 549,
+"end": 215,
+"type": "ORIGIN",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 549,
+"labels": [
+              "Flight"
+            ],
+"properties": {
+"date": "11/29/2015 12:11:25",
+"duration": 222,
+"distance": 2065,
+"airline": "19977"
+            }
+          }
+        },
+        {
+          "start": {
+"identity": 549,
+"labels": [
+              "Flight"
+            ],
+"properties": {
+"date": "11/29/2015 12:11:25",
+"duration": 222,
+"distance": 2065,
+"airline": "19977"
+            }
+          },
+          "relationship": {
+"identity": 649,
+"start": 549,
+"end": 202,
+"type": "DESTINATION",
+"properties": {
+
+            }
+          },
+          "end": {
+"identity": 202,
+"labels": [
+              "Airport"
+            ],
+"properties": {
+"name": "IAD"
+            }
+          }
+        }
+      ],
+"length": 4.0
+    },
+    "totalPrice": 2689.5
+  }
+]
