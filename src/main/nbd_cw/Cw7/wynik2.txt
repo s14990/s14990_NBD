@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8ypz/fu6do3YXIpTImMfK8ELY6RZfFgA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.8 (that head fake, tho)
+Link: </buckets/s14990>; rel="up"
+Last-Modified: Sat, 19 Jun 2021 07:08:24 GMT
+ETag: "3ysF2OWt6IFWqgL6uvM56c"
+Date: Sat, 19 Jun 2021 07:10:56 GMT
+Content-Type: application/json
+Content-Length: 70
+
+{"type":"yacht", "name": "Y2", "lenght": 30, width: 10, "sails": true}

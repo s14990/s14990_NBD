@@ -1,0 +1,26 @@
+//riak
+docker run -v /data/riak:/var/lib/riak -it dasudian/riak bash
+//1
+curl -i -XPOST -d '{"type":"yacht", "name": "A1", "lenght": 30, width: 10, "sails": true}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/y1
+curl -i -XPOST -d '{"type":"boat", "name": "B1", "lenght": 10, width: 4, "sails": false}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/b1
+curl -i -XPOST -d '{"type":"frigate", "name": "F1", "lenght": 100, width: 10, "sails": false}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/f1
+curl -i -XPOST -d '{"type":"submarine", "name": "S1", "lenght": 30, width: 5, "sails": false}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/s1
+curl -i -XPOST -d '{"type":"yacht", "name": "Y2", "lenght": 30, width: 10, "sails": true}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/y2
+//2
+curl -i -XGET localhost:8098/buckets/s14990/keys/y2 -o wynik2.txt
+//3
+curl -i -XPOST -d '{"type":"yacht", "name": "Y2", "lenght": 30, width: 10, "sails": true, "sails_height": 20}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/y2 -o wynik3.txt
+//4
+curl -i -XPOST -d '{"type":"yacht", "name": "Y2", "lenght": 30, "sails": true, "sails_height": 20}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/y2 -o wynik4.txt
+//5
+curl -i -XPOST -d '{"type":"yacht", "name": "Y2", "lenght": 45, "sails": true, "sails_height": 20}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys/y2 -o wynik5.txt
+//6
+curl -i -XDELETE localhost:8098/buckets/s14990/keys/y1 -o wynik6.txt
+//7
+curl -i -XGET localhost:8098/buckets/s14990/keys/y11 -o wynik7.txt
+//8
+curl -i -XPOST -d '{"name":"test"}' -H "Content-Type: application/json" localhost:8098/buckets/s14990/keys -o wynik8.txt
+//9
+curl -i -XGET localhost:8098/buckets/s14990/keys/7jzbFmHSVSY9X9FQpcJsdhhZIk3 -o wynik9.txt
+//10
+curl -i -XDELETE localhost:8098/buckets/s14990/keys/7jzbFmHSVSY9X9FQpcJsdhhZIk3 -o wynik10.txt
